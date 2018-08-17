@@ -6,16 +6,16 @@ class Node
 
   def add
     # TODO: implement method
-    puts(@node)
+    @node
   end
 
   def last?
     # TODO: implement method
-    puts(@node)
+    @node
   end
 
   def get
     # TODO: implement method
-    puts(@node)
+    @node
   end
 end
