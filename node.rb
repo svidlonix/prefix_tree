@@ -1,21 +1,24 @@
+require 'byebug'
+
 # TODO: add descriptin class
 class Node
-  def initialize(node)
-    @node = node
+  def initialize(char)
+    @char = char
   end
 
-  def add
-    # TODO: implement method
-    @node
+  def add(pased_chars)
+    node = {}
+
+    (pased_chars + [@char]).inject($prefix_tree) { |h, k| h[k] ||= {} }
   end
 
   def last?
     # TODO: implement method
-    @node
+    @char
   end
 
   def get
     # TODO: implement method
-    @node
+    @char
   end
 end

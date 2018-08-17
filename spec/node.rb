@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe Node do
   let(:node) { Node.new('a') }
-  subject { file }
 
   describe '#add' do
-    it { expect(node.add).to eq('a') }
+    before { node.add([]) }
+
+    it { expect($prefix_tree).to eq('a' => {}) }
   end
 
   describe '#last?' do
