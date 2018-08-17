@@ -6,16 +6,16 @@ class Word
 
   def add
     # TODO: implement method
-    puts(@word)
+    @word
   end
 
   def include?
     # TODO: implement method
-    puts(@word)
+    @word
   end
 
   def list
     # TODO: implement method
-    puts(@word)
+    @word
   end
 end
