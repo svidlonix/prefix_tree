@@ -1,3 +1,6 @@
+require_relative 'node'
+require 'byebug'
+
 # TODO: add descriptin class
 class Word
   def initialize(word = nil)
@@ -5,8 +8,12 @@ class Word
   end
 
   def add
-    # TODO: implement method
-    @word
+    pased_chars = []
+
+    @word.each_char do |char|
+      Node.new(char).add(pased_chars)
+      pased_chars << char
+    end
   end
 
   def include?

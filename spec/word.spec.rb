@@ -1,18 +1,20 @@
 require 'spec_helper'
+require 'byebug'
 
 describe Word do
-  let(:node) { Word.new('cat') }
-  subject { file }
+  let(:word) { Word.new('cat') }
 
   describe '#add' do
-    it { expect(node.add).to eq('cat') }
+    before { word.add }
+
+    it { expect($prefix_tree).to eq('c' => { 'a' => { 't' => {} } }) }
   end
 
   describe '#include?' do
-    it { expect(node.include?).to eq('cat') }
+    it { expect(word.include?).to eq('cat') }
   end
 
   describe '#list' do
-    it { expect(node.list).to eq('cat') }
+    it { expect(word.list).to eq('cat') }
   end
 end
