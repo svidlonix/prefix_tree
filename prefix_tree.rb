@@ -12,8 +12,9 @@ loop do
   when 'add'
     Word.new(*params).add
     puts($prefix_tree)
+    puts('added')
   when 'include?'
-    puts 'include?'
+    puts(Word.new(*params).include?)
   when 'get'
     puts 'get'
   else
