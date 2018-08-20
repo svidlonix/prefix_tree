@@ -11,18 +11,25 @@ class Word
     pased_chars = []
 
     @word.each_char do |char|
-      Node.new(char).add(pased_chars)
+      last_char = last_char(char)
+      Node.new.add(char, pased_chars, last_char)
       pased_chars << char
     end
   end
 
   def include?
-    # TODO: implement method
-    @word
+    array_chars = @word.split('')
+    Node.new.nodes_present?(array_chars)
   end
 
   def list
     # TODO: implement method
     @word
+  end
+
+  private
+
+  def last_char(char)
+    @word[-1] == char ? { last_char: true } : {}
   end
 end
