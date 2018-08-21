@@ -8,13 +8,8 @@ class Word
   end
 
   def add
-    pased_chars = []
-
-    @word.each_char do |char|
-      last_char = last_char(char)
-      Node.new.add(char, pased_chars, last_char)
-      pased_chars << char
-    end
+    array_chars = @word.split('')
+    Node.new.add(array_chars, $prefix_tree)
   end
 
   def include?
@@ -23,8 +18,11 @@ class Word
   end
 
   def list
-    # TODO: implement method
-    @word
+    array_char = []
+    array_words = []
+    Node.new.knit_nodes($prefix_tree, array_char, array_words)
+
+    array_words
   end
 
   private

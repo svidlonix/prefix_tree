@@ -1,6 +1,7 @@
 require_relative 'load_save_file'
 require_relative 'node'
 require_relative 'word'
+require 'byebug'
 
 $prefix_tree = {}
 
@@ -15,8 +16,9 @@ loop do
     puts('added')
   when 'include?'
     puts(Word.new(*params).include?)
-  when 'get'
-    puts 'get'
+  when 'list'
+    puts('List of words:')
+    puts(Word.new.list)
   else
     puts 'Invalid command'
   end
