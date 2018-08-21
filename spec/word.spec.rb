@@ -5,9 +5,11 @@ describe Word do
   let(:word) { Word.new('catty') }
 
   describe '#add' do
+    let(:expected_result) { { 'c' => { 'a' => { 't' => { 't' => { 'y' => { last_char: true } } } } } } }
+
     before { word.add }
 
-    it { expect($prefix_tree).to eq('c' => { 'a' => { 't' => { 't' => { 'y' => { last_char: true } } } } }) }
+    it { expect($prefix_tree).to eq(expected_result) }
   end
 
   describe '#include?' do
@@ -25,6 +27,13 @@ describe Word do
   end
 
   describe '#list' do
-    it { expect(word.list).to eq('catty') }
+    let(:word2) { Word.new('cat') }
+
+    before do
+      word.add
+      word2.add
+    end
+
+    it { expect(Word.new.list).to eq(%w[catty cat]) }
   end
 end
