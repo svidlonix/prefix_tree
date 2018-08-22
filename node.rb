@@ -30,7 +30,7 @@ class Node
   private
 
   def last?(value_char)
-    !value_char[:last_char].nil?
+    !value_char.nil? && !value_char[:last_char].nil?
   end
 
   def last_char?(key)
