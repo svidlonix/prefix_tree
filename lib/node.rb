@@ -1,6 +1,5 @@
 require 'byebug'
 
-# TODO: add descriptin class
 class Node
   def add(array_chars, tree)
     array_chars.each do |char|
