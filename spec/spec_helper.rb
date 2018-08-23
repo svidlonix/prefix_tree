@@ -14,9 +14,9 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-require_relative '../load_save_file'
-require_relative '../node'
-require_relative '../word'
+require_relative '../lib/load_save_file'
+require_relative '../lib/node'
+require_relative '../lib/word'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

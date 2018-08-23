@@ -1,7 +1,6 @@
 require_relative 'node'
 require 'byebug'
 
-# TODO: add descriptin class
 class Word
   def initialize(word = nil)
     @word = word
