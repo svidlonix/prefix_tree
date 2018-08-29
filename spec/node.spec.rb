@@ -17,7 +17,7 @@ describe Node do
       end
 
       before do
-        Word.new('catty').add
+        Tree.new('catty').add
         node.add(%w[c a t], $prefix_tree)
       end
 
@@ -26,7 +26,7 @@ describe Node do
   end
 
   describe '#nodes_present?' do
-    let(:word) { Word.new('catty') }
+    let(:word) { Tree.new('catty') }
 
     before { word.add }
 
@@ -44,10 +44,10 @@ describe Node do
     let(:array_words) { [] }
 
     before do
-      Word.new('catty').add
-      Word.new('cat').add
-      Word.new('post').add
-      Word.new('push').add
+      Tree.new('catty').add
+      Tree.new('cat').add
+      Tree.new('post').add
+      Tree.new('push').add
       node.knit_nodes($prefix_tree, array_chars, array_words)
     end
 
