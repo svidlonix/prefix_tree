@@ -1,38 +1,33 @@
 require 'byebug'
 
 class Node
-  def add(array_chars, tree)
-    array_chars.each do |char|
-      tree[char] ||= {}
-      tree[char][:last_char] = true if array_chars[-1] == char
-      tree = tree[char]
+  attr_accessor :char, :children, :leaf
+
+  def initialize(char, leaf = false, children = [])
+    @char = char
+    @children = children
+    @leaf = leaf
+  end
+
+  def self.nodes_include?(array_chars, tree)
+    return true if array_chars.empty? && tree.leaf
+    node = tree.children.select { |obj| obj.char == array_chars.first }
+
+    if node.empty?
+      return false
+    else
+      nodes_include?(array_chars.drop(1), node.first)
     end
   end
 
-  def nodes_present?(array_chars)
-    value_char = $prefix_tree.dig(*array_chars)
-    last?(value_char)
-  end
+  def add(tree, leaf)
+    node = tree.children.select { |obj| obj.char == @char }.first
 
-  def knit_nodes(tree, array_chars, array_words)
-    tree.each do |key, value|
-      if last_char?(key)
-        array_words << array_chars.join
-      else
-        array_chars << key
-        knit_nodes(value, array_chars, array_words)
-      end
-      array_chars.pop unless last_char?(key)
+    if node.nil?
+      node = Node.new(@char, leaf)
+      tree.children << node
     end
-  end
 
-  private
-
-  def last?(value_char)
-    !value_char.nil? && !value_char[:last_char].nil?
-  end
-
-  def last_char?(key)
-    key == :last_char
+    node
   end
 end

@@ -22,20 +22,12 @@ include? <word>
 ```
 list
 ```
-Upload information from default file words.txt
+Load information to file with path without extension, add format without point, use txt or zip
 ```
 load file
 ```
-Save information from default file words.txt
+Save information to file with path without extension, add format without point, use txt or zip
 ```
-save file
-```
-Upload information from default archive words.zip
-```
-load zip file
-```
-Save information from default archive words.zip
-```
-save zip file
+save <path_to_file> [--<format_file>]
 ```
 
