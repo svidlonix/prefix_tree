@@ -19,7 +19,8 @@ class Tree
     list_of_chars = @word.split('')
 
     list_of_chars.each do |char|
-      tree = Node.new(char).add(tree, last_char?(list_of_chars[-1], char))
+      last_char = last_char?(list_of_chars[-1], char)
+      tree = Node.new(char, last_char).add(tree)
     end
   end
 
