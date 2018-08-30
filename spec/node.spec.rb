@@ -1,56 +1,52 @@
 require 'spec_helper'
+require 'byebug'
 
 describe Node do
-  let(:node) { Node.new }
-  let(:expected_result) { { 'c' => { 'a' => { 't' => { last_char: true } } } } }
+  def node_new(char, leaf = false, children = [])
+    Node.new(char, leaf, children)
+  end
 
   describe '#add' do
-    context 'when firt word' do
-      before { node.add(%w[c a t], $prefix_tree) }
+    context 'when node present' do
+      let(:child_node)  { node_new('b') }
+      let(:parent_node) { node_new('a', false, [child_node]) }
 
-      it { expect($prefix_tree).to eq(expected_result) }
+      it { expect(node_new('b').add(parent_node)).to eq(child_node) }
     end
 
-    context 'when second world with similar words' do
-      let(:expected_result) do
-        { 'c' => { 'a' => { 't' => { 't' => { 'y' => { last_char: true } }, last_char: true } } } }
-      end
+    context 'when node not present' do
+      let(:parent_node) { node_new('b') }
+      let(:new_node)    { node_new('c') }
 
-      before do
-        Tree.new('catty').add
-        node.add(%w[c a t], $prefix_tree)
-      end
+      it { expect(new_node.add(parent_node)).to eq(new_node) }
+    end
 
-      it { expect($prefix_tree).to eq(expected_result) }
+    context 'when node not present and last' do
+      let(:parent_node) { node_new('b') }
+      let(:new_node)    { node_new('b', true) }
+
+      it { expect(new_node.add(parent_node).leaf).to eq(new_node.leaf) }
     end
   end
 
-  describe '#nodes_present?' do
-    let(:word) { Tree.new('catty') }
-
-    before { word.add }
+  describe '.nodes_present?' do
+    let(:child_node)   { node_new('y', true) }
+    let(:parent_node1) { node_new('t', false, [child_node]) }
+    let(:parent_node2) { node_new('t', false, [parent_node1]) }
+    let(:parent_node3) { node_new('a', false, [parent_node2]) }
+    let(:parent_node4) { node_new('c', false, [parent_node3]) }
+    let(:first_node)   { node_new('*', false, [parent_node4]) }
 
     context 'when array of chars present' do
-      it { expect(node.nodes_present?(%w[c a t t y])).to eq(true) }
+      it { expect(Node.nodes_include?(%w[c a t t y], first_node)).to eq(true) }
     end
 
-    context 'when array of chars not present' do
-      it { expect(node.nodes_present?(%w[c a t])).to eq(false) }
-    end
-  end
-
-  describe '#knit_nodes' do
-    let(:array_chars) { [] }
-    let(:array_words) { [] }
-
-    before do
-      Tree.new('catty').add
-      Tree.new('cat').add
-      Tree.new('post').add
-      Tree.new('push').add
-      node.knit_nodes($prefix_tree, array_chars, array_words)
+    context 'when array of chars do not present' do
+      it { expect(Node.nodes_include?(%w[d o g], first_node)).to eq(false) }
     end
 
-    it { expect(array_words).to eq(%w[catty cat post push]) }
+    context 'when word have similar letters' do
+      it { expect(Node.nodes_include?(%w[c a t], first_node)).to eq(false) }
+    end
   end
 end

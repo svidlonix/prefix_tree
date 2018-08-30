@@ -20,13 +20,10 @@ class Node
     end
   end
 
-  def add(tree, leaf)
+  def add(tree)
     node = tree.children.select { |obj| obj.char == @char }.first
-
-    if node.nil?
-      node = Node.new(@char, leaf)
-      tree.children << node
-    end
+    tree.children << node = self if node.nil?
+    node.leaf = true if leaf
 
     node
   end

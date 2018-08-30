@@ -2,38 +2,41 @@ require 'spec_helper'
 require 'byebug'
 
 describe Tree do
-  let(:word) { Tree.new('catty') }
+  def node_new(char, leaf = false, children = [])
+    Node.new(char, leaf, children)
+  end
 
   describe '#add' do
-    let(:expected_result) { { 'c' => { 'a' => { 't' => { 't' => { 'y' => { last_char: true } } } } } } }
+    before { Tree.new('cat').add }
 
-    before { word.add }
-
-    it { expect($prefix_tree).to eq(expected_result) }
+    it { expect($prefix_tree.first.children.first.children.first.children.first.char).to eq('t') }
+    it { expect($prefix_tree.first.children.first.children.first.char).to eq('a') }
+    it { expect($prefix_tree.first.children.first.char).to eq('c') }
+    it { expect($prefix_tree.first.char).to eq('*') }
   end
 
   describe '#include?' do
-    before { word.add }
+    before { Tree.new('catty').add }
 
     context 'when word include' do
-      it { expect(word.include?).to eq(true) }
+      it { expect(Tree.new('catty').include?).to eq(true) }
     end
 
     context 'when word not include' do
-      let(:word_not_include) { Tree.new('cat') }
+      it { expect(Tree.new('dog').include?).to eq(false) }
+    end
 
-      it { expect(word_not_include.include?).to eq(false) }
+    context 'when word have similar letters' do
+      it { expect(Tree.new('cat').include?).to eq(false) }
     end
   end
 
-  describe '#list' do
-    let(:word2) { Tree.new('cat') }
-
+  describe '.list' do
     before do
-      word.add
-      word2.add
+      Tree.new('catty').add
+      Tree.new('cat').add
     end
 
-    it { expect(Tree.new.list).to eq(%w[catty cat]) }
+    it { expect(Tree.list).to eq(%w[cat catty]) }
   end
 end
