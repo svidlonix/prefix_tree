@@ -27,4 +27,3 @@ describe SourceFile::Load do
     it { expect(Tree.list).to eq(%w[cat dog]) }
   end
 end
-save 'data/wordzzzssss' [--txt]
