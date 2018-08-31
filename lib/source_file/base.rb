@@ -1,14 +1,14 @@
 require 'zip'
-require_relative '../tree'
+require_relative '../prefix_tree'
 
 module SourceFile
   class Base
-    def call(path, format)
+    def call(path, format, prefix_tree)
       case format
       when /txt/
-        txt(path.delete('"'))
+        txt(prefix_tree, path.delete('"'))
       when /zip/
-        zip(path.delete('"'))
+        zip(prefix_tree, path.delete('"'))
       end
     rescue Errno::ENOENT => e
       puts(e.message)
@@ -20,16 +20,16 @@ module SourceFile
       File.delete(filename) if File.exist?(filename)
     end
 
-    def zip_path(paht)
-      file_path(paht, '.zip')
+    def zip_path(path)
+      file_path(path, '.zip')
     end
 
-    def txt_path(paht)
-      file_path(paht, '.txt')
+    def txt_path(path)
+      file_path(path, '.txt')
     end
 
-    def file_path(paht, extension)
-      "#{paht}#{extension}"
+    def file_path(path, extension)
+      "#{path}#{extension}"
     end
   end
 end
