@@ -32,6 +32,19 @@ describe PrefixTree do
     end
   end
 
+  describe '#delete' do
+    let(:prefix_tree) { PrefixTree.new }
+
+    before do
+      prefix_tree.add('cat')
+      prefix_tree.add('dog')
+      prefix_tree.add('rebbit')
+      prefix_tree.delete('rebbit')
+    end
+
+    it { expect(prefix_tree.list).to eq(%w[cat dog]) }
+  end
+
   describe '#list' do
     let(:prefix_tree) { PrefixTree.new }
 

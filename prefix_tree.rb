@@ -26,6 +26,13 @@ loop do
       prefix_tree.add(*params)
       puts('added')
     end
+  when /delete/
+    if prefix_tree.include?(*params)
+      prefix_tree.delete(*params)
+      puts('deleted')
+    else
+      puts('this word does not exist')
+    end
   when /include?/
     puts(prefix_tree.include?(*params))
   when /list/
