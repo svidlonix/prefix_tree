@@ -28,7 +28,31 @@ class PrefixTree
     nodes_include?(word.split(''), @head)
   end
 
+  def delete(word)
+    list_of_chars = word.split('')
+    node = @head
+
+    list_of_chars.each do
+      return unless delete_last_node(node, list_of_chars)
+      list_of_chars.pop
+    end
+  end
+
   private
+
+  def delete_last_node(head_node, list_of_chars)
+    node = head_node.children.select { |obj| obj.char == list_of_chars.first }.first
+
+    if list_of_chars.size == 1 && node.children.empty?
+      return false if head_node.leaf
+      head_node.children.delete(node)
+    elsif list_of_chars.empty?
+      head_node.leaf = false
+      return false
+    else
+      delete_last_node(node, list_of_chars.drop(1))
+    end
+  end
 
   def get_words(head_node, array_chars, array_words)
     head_node.children.each do |node|
@@ -43,9 +67,9 @@ class PrefixTree
     last_char == char
   end
 
-  def nodes_include?(array_chars, word_tree)
-    return true if array_chars.empty? && word_tree.leaf
-    node = word_tree.children.select { |obj| obj.char == array_chars.first }
+  def nodes_include?(array_chars, head_node)
+    return true if array_chars.empty? && head_node.leaf
+    node = head_node.children.select { |obj| obj.char == array_chars.first }
 
     if node.empty?
       return false
