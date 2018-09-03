@@ -17,7 +17,7 @@
 require_relative '../lib/source_file/save'
 require_relative '../lib/source_file/load'
 require_relative '../lib/node'
-require_relative '../lib/tree'
+require_relative '../lib/prefix_tree'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -49,5 +49,4 @@ RSpec.configure do |config|
   # inherited by the metadata hash of host groups and examples, rather than
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
-  config.before(:example) { $prefix_tree = [Node.new('*')] }
 end
