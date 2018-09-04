@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'byebug'
 
 describe PrefixTree do
-
   describe '#add' do
     let(:prefix_tree) { PrefixTree.new }
 

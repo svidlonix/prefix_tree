@@ -2,7 +2,7 @@ require_relative 'node'
 require 'byebug'
 
 class PrefixTree
-  def initialize()
+  def initialize
     @head = Node.new('*')
   end
 
@@ -18,8 +18,8 @@ class PrefixTree
     head_node = @head
     list_of_chars = word.split('')
 
-    list_of_chars.each do |char|
-      last_char = last_char?(list_of_chars[-1], char)
+    list_of_chars.each_with_index do |char, index|
+      last_char = ((index + 1) == list_of_chars.size)
       head_node = add_node(char, last_char, head_node)
     end
   end
@@ -61,10 +61,6 @@ class PrefixTree
       get_words(node, array_chars, array_words)
       array_chars = []
     end
-  end
-
-  def last_char?(last_char, char)
-    last_char == char
   end
 
   def nodes_include?(array_chars, head_node)
